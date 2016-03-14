@@ -7,20 +7,22 @@ namespace tictactoe.Model
 {
     public class Board
     {
-        private string[,] _board;
+        private char[,] _board;
 
         public Board()
         {
-            this._board = new string[3,3];
+            _board = new char[,] {{'\0','\0','\0'},
+                                  {'\0','\0','\0'},
+                                  {'\0','\0','\0'}};
         }
 
-        public bool checkForWinner(string piece) {
+        public bool checkForWinner(char piece) {
             return (horizontalWin(piece)
                     || verticalWin(piece)
                     || diagonalWin(piece));
         }
 
-        public bool horizontalWin(string piece) {
+        public bool horizontalWin(char piece) {
           bool winner = false;
           for(int i = 0; i < _board.Length && !winner; i++) {
             int j;
@@ -34,7 +36,7 @@ namespace tictactoe.Model
             return winner;
         }
 
-        public bool verticalWin(string piece) {
+        public bool verticalWin(char piece) {
             bool winner = false;
             for(int i = 0; i < _board.Length && !winner; i++) {
               int j;
@@ -48,11 +50,11 @@ namespace tictactoe.Model
             return winner;
         }
 
-        public bool diagonalWin(string piece) {
+        public bool diagonalWin(char piece) {
           return(primaryDiagonalWin(piece) || secondaryDiagonalWin(piece));
         }
 
-        public bool primaryDiagonalWin(string piece) {
+        public bool primaryDiagonalWin(char piece) {
           int i;
           for(i = 0; i < _board.Length; i++) {
             if(_board[i,i] != piece)
@@ -61,7 +63,7 @@ namespace tictactoe.Model
           return (i == 3);
         }
 
-        public bool secondaryDiagonalWin(string piece) {
+        public bool secondaryDiagonalWin(char piece) {
           int i;
           for(i = 2; i >= _board.Length; i--) {
             if(_board[Math.Abs(i-2),i] != piece)
@@ -75,7 +77,7 @@ namespace tictactoe.Model
                     && final.x <= initial.x + 1
                     && initial.y - 1 <= final.y
                     && final.y <= initial.y + 1
-                    && _board[final.x,final.y] == null);
+                    && _board[final.x,final.y] == '\0');
         }
 
         public bool unpairValidation(Position initial, Position final) {
@@ -92,12 +94,12 @@ namespace tictactoe.Model
                     && position.y < 3);
         }
 
-        public bool isValidPieceToMove(Position position, string piece) {
+        public bool isValidPieceToMove(Position position, char piece) {
             return (_board[position.x,position.y] == piece);
         }
 
         public bool isOccupiedPosition(Position position) {
-            return (_board[position.x,position.y] != null);
+            return (_board[position.x,position.y] != '\0');
         }
         
         public bool isMovementAllowed(Position initial, Position final) {
@@ -114,7 +116,7 @@ namespace tictactoe.Model
             return allowed;
         }
         
-        public bool isValidMovement(string piece, Position initial, Position final) {
+        public bool isValidMovement(char piece, Position initial, Position final) {
             if(isValidPosition(initial) && isValidPosition(final)) {
                 if(isValidPieceToMove(initial, piece)) {
                     if(isOccupiedPosition(final)) {
@@ -138,7 +140,7 @@ namespace tictactoe.Model
             }
         }
         
-        public void putPiece(string piece, Position position) {
+        public void putPiece(char piece, Position position) {
             if(isValidPosition(position)) {
                 if(!isOccupiedPosition(position)) {
                     _board[position.x, position.y] = piece;
@@ -152,16 +154,16 @@ namespace tictactoe.Model
             }
         }
         
-        public void movePiece(string piece, Position initial, Position final) {
+        public void movePiece(char piece, Position initial, Position final) {
             if(isValidMovement(piece,initial,final)) {
                 _board[final.x,final.y] = _board[initial.x,initial.y];
-                _board[initial.x,initial.y] = null;   
+                _board[initial.x,initial.y] = '\0';   
             }
         }
         
-        public int countPieces(string piece) {
+        public int countPieces(char piece) {
             var count = 0;
-            foreach (string item in _board)
+            foreach (char item in _board)
             {
                 if(item == piece)
                     count++;
