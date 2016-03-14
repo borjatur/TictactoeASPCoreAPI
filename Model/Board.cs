@@ -16,7 +16,7 @@ namespace tictactoe.Model
                                   {'\0','\0','\0'}};
         }
 
-        public bool checkForWinner(char piece) {
+        public bool isWinningMove(char piece) {
             return (horizontalWin(piece)
                     || verticalWin(piece)
                     || diagonalWin(piece));
