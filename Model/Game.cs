@@ -4,19 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using tictactoe.Model;
 
-namespace tictactoe.model
+namespace tictactoe.Model
 {
     public class Game
     {
-        private int _id;
-        private string _player1;
-        private string _player2;
-        private Board _board;
-        private int _turn;
-        private bool _active;
-        private bool _winner;
+        public string _id;
+        public string _player1;
+        public string _player2;
+        public Board _board;
+        public int _turn;
+        public bool _active;
+        public bool _winner;
         
-        public Game(int id, string player1)
+        public Game(string id, string player1)
         {
             _id = id;
             _player1 = player1;
@@ -27,7 +27,7 @@ namespace tictactoe.model
             _winner = false;
         }
         
-        public int setSecondPlayer(string player) {
+        public string setSecondPlayer(string player) {
             if (_player1 != player) {
                 _player2 = player;
                 _active = true;
@@ -42,7 +42,7 @@ namespace tictactoe.model
             return _active;
         }
         
-        public int getId() {
+        public string getId() {
             return _id;
         }
         

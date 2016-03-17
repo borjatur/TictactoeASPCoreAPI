@@ -14,5 +14,9 @@ namespace tictactoe.Model
             this.x = x;
             this.y = y;
         }
+        
+        public bool isValidPosition() {
+            return (x >= 0 && y >=0);
+        }
     }
 }
