@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace tictactoe.Model
 {
     public class Board
     {
-        private char[,] _board;
+        public char[,] _board;
 
         public Board()
         {
@@ -24,9 +25,9 @@ namespace tictactoe.Model
 
         public bool horizontalWin(char piece) {
           bool winner = false;
-          for(int i = 0; i < _board.Length && !winner; i++) {
+          for(int i = 0; i < _board.GetLength(0) && !winner; i++) {
             int j;
-            for(j = 0; j < _board.Length; j++) {
+            for(j = 0; j < _board.GetLength(1); j++) {
               if(_board[i,j] != piece)
                 break;
             }
@@ -38,9 +39,9 @@ namespace tictactoe.Model
 
         public bool verticalWin(char piece) {
             bool winner = false;
-            for(int i = 0; i < _board.Length && !winner; i++) {
+            for(int i = 0; i < _board.GetLength(1) && !winner; i++) {
               int j;
-              for(j = 0; j < _board.Length; j++) {
+              for(j = 0; j < _board.GetLength(0); j++) {
                 if(_board[j,i] != piece)
                   break;
               }
@@ -56,7 +57,7 @@ namespace tictactoe.Model
 
         public bool primaryDiagonalWin(char piece) {
           int i;
-          for(i = 0; i < _board.Length; i++) {
+          for(i = 0; i < _board.GetLength(0); i++) {
             if(_board[i,i] != piece)
               break;
           }
@@ -65,7 +66,7 @@ namespace tictactoe.Model
 
         public bool secondaryDiagonalWin(char piece) {
           int i;
-          for(i = 2; i >= _board.Length; i--) {
+          for(i = 2; i >= _board.GetLength(0); i--) {
             if(_board[Math.Abs(i-2),i] != piece)
               break;
           }
@@ -99,7 +100,7 @@ namespace tictactoe.Model
         }
 
         public bool isOccupiedPosition(Position position) {
-            return (_board[position.x,position.y] != '\0');
+            return (_board[position.x, position.y] != '\0');
         }
         
         public bool isMovementAllowed(Position initial, Position final) {
@@ -143,7 +144,7 @@ namespace tictactoe.Model
         public void putPiece(char piece, Position position) {
             if(isValidPosition(position)) {
                 if(!isOccupiedPosition(position)) {
-                    _board[position.x, position.y] = piece;
+                    _board[position.x, position.y] = piece;    
                 }
                 else {
                     throw new Exception($"Position ({position.x},{position.y}) is occupied");
