@@ -7,6 +7,7 @@ There are variants of the game. In this implementation the player can move their
 
 ## Getting Started
 To test the Web API:
+* Type **"dnx restore"** to restore the project’s dependencies
 * Type **"dnx web"** in command prompt inside working directory
 
 ### API calls
